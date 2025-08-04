@@ -1,22 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FaMapMarkerAlt, FaRegClock, FaMusic, FaEnvelopeOpenText, FaCamera } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import {
+  FaMapMarkerAlt,
+  FaRegClock,
+  FaMusic,
+  FaEnvelopeOpenText,
+  FaCamera,
+} from 'react-icons/fa';
 import Image from 'next/image';
 import galeriImages from '@/data/galeriImages';
-
-{galeriImages.map((img, i) => (
-  <div key={i} className="aspect-square overflow-hidden rounded-lg shadow hover:scale-105 transition">
-    <Image
-      src={`/images/demo/galeri/${img}`}
-      alt={`Galeri ${i + 1}`}
-      width={300}
-      height={300}
-      className="object-cover w-full h-full"
-    />
-  </div>
-))}
-
 
 export default function Template2({ id }: { id: string }) {
   const targetDate = new Date('2025-10-10T08:00:00').getTime();
@@ -55,6 +49,18 @@ export default function Template2({ id }: { id: string }) {
         </h1>
         <p className="text-xl sm:text-2xl mb-4 sm:mb-6 text-[#a65b2a]">Sinta & Joko</p>
         <p className="text-xs sm:text-sm text-gray-500 mb-4">ID Undangan: {id}</p>
+
+        {/* Kutipan Ayat */}
+        <motion.blockquote
+          className="italic text-pink-800 mb-8 text-sm sm:text-base px-2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+        >
+          "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup..."
+          <br />
+          <span className="text-xs sm:text-sm">QS. Ar-Rum: 21</span>
+        </motion.blockquote>
 
         {/* Gambar Pasangan */}
         <div className="rounded-xl overflow-hidden shadow-xl border-4 border-[#7a3e1d] w-full max-w-xs sm:max-w-md md:max-w-xl mx-auto mb-6 transition-transform duration-300 hover:scale-105">
@@ -133,25 +139,27 @@ export default function Template2({ id }: { id: string }) {
         </div>
 
         {/* Galeri Foto */}
-<div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg mb-8 sm:mb-12">
-  <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-[#7a3e1d] flex items-center gap-2 justify-center">
-    <FaCamera size={16} /> Galeri Kenangan
-  </h3>
-  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
-    {galeriImages.map((img, i) => (
-      <div key={i} className="aspect-square overflow-hidden rounded-lg shadow hover:scale-105 transition">
-        <Image
-          src={`/images/demo/${img}`}
-          alt={`Galeri ${i + 1}`}
-          width={300}
-          height={300}
-          className="object-cover w-full h-full"
-        />
-      </div>
-    ))}
-  </div>
-</div>
-
+        <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg mb-8 sm:mb-12">
+          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-[#7a3e1d] flex items-center gap-2 justify-center">
+            <FaCamera size={16} /> Galeri Kenangan
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+            {galeriImages.map((img, i) => (
+              <div
+                key={i}
+                className="aspect-square overflow-hidden rounded-lg shadow hover:scale-105 transition"
+              >
+                <Image
+                  src={`/images/demo/${img}`}
+                  alt={`Galeri ${i + 1}`}
+                  width={300}
+                  height={300}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

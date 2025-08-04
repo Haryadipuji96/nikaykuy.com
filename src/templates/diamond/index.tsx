@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image';
+
 import { useEffect, useRef, useState } from 'react'
 import {
   FaCalendarAlt,
@@ -140,11 +141,15 @@ export default function Template1({ id }: { id: string }) {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          <img
-            src="/images/demo/prewedingDiamond4.jpg"
-            alt="Pasangan"
-            className="rounded-lg w-full h-auto shadow-xl"
-          />
+         <Image
+  src="/images/demo/prewedingDiamond4.jpg"
+  alt="Pasangan"
+  width={500}
+  height={500}
+  className="rounded-lg w-full h-auto shadow-xl"
+  priority
+/>
+
         </motion.div>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 mb-2 text-pink-600 text-sm sm:text-base">
@@ -171,7 +176,7 @@ export default function Template1({ id }: { id: string }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
         >
-          "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup..."
+          &quot;Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup...&quot;
           <br />
           <span className="text-xs sm:text-sm"> QS. Ar-Rum: 21</span>
         </motion.blockquote>
