@@ -9,22 +9,28 @@ interface Props {
   };
 }
 
+// Tentukan tipe props untuk setiap komponen template
+type TemplateComponentProps = {
+  id: string;
+};
+
+// Map slug ke komponen dengan tipe aman
+const templates: Record<string, React.ComponentType<TemplateComponentProps>> = {
+  diamond: Diamond,
+  elegant: Elegant,
+  classic: Classic,
+};
+
 export async function generateStaticParams() {
   return [
-    { slug: 'diamond', id: 'abc' },
-    { slug: 'elegant', id: 'xyz' },
-    { slug: 'classic', id: '123' },
+    { slug: "diamond", id: "abc" },
+    { slug: "elegant", id: "xyz" },
+    { slug: "classic", id: "123" },
   ];
 }
 
 export default function UndanganPage({ params }: Props) {
   const { slug, id } = params;
-
-  const templates: Record<string, any> = {
-    diamond: Diamond,
-    elegant: Elegant,
-    classic: Classic,
-  };
 
   const TemplateComponent = templates[slug];
 
