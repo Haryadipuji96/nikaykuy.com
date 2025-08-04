@@ -12,14 +12,33 @@ import {
 import Image from 'next/image';
 import galeriImages from '@/data/galeriImages';
 
+// Type untuk countdown timer
+type Countdown = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
 export default function Template2({ id }: { id: string }) {
   const targetDate = new Date('2025-10-10T08:00:00').getTime();
-  const [timeLeft, setTimeLeft] = useState<any>({});
+  const [timeLeft, setTimeLeft] = useState<Countdown>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -27,11 +46,6 @@ export default function Template2({ id }: { id: string }) {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       setTimeLeft({ days, hours, minutes, seconds });
-
-      if (distance < 0) {
-        clearInterval(timer);
-        setTimeLeft({});
-      }
     }, 1000);
 
     return () => clearInterval(timer);
@@ -40,7 +54,7 @@ export default function Template2({ id }: { id: string }) {
   return (
     <div className="min-h-screen bg-[#f5f0ea] text-gray-900 font-serif relative overflow-hidden">
       {/* Background Batik */}
-      <div className="absolute inset-0 bg-[url('/images/demo/preweding-Elegan2.jpg')] bg-repeat opacity-35 z-0"></div>
+      <div className="absolute inset-0 bg-[url('/images/demo/preweding-Elegan2.jpg')] bg-repeat opacity-35 z-0" />
 
       <div className="relative z-10 max-w-4xl mx-auto py-8 sm:py-12 px-4 sm:px-6 text-center">
         {/* Judul dan Nama Pasangan */}
@@ -57,9 +71,9 @@ export default function Template2({ id }: { id: string }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
         >
-          "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup..."
+          &quot;Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup...&quot;
           <br />
-          <span className="text-xs sm:text-sm">QS. Ar-Rum: 21</span>
+          <span className="text-xs sm:text-sm">&quot;QS. Ar-Rum: 21&quot;</span>
         </motion.blockquote>
 
         {/* Gambar Pasangan */}
@@ -90,7 +104,7 @@ export default function Template2({ id }: { id: string }) {
           <p className="text-sm sm:text-lg">Pendopo Agung, Yogyakarta</p>
         </div>
 
-        {/* Musik Default */}
+        {/* Musik */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-6 sm:mb-8">
           <div className="flex items-center gap-2">
             <FaMusic className="text-[#7a3e1d]" />
@@ -106,14 +120,14 @@ export default function Template2({ id }: { id: string }) {
         <div className="bg-[#7a3e1d] text-white py-4 sm:py-6 px-4 rounded-xl shadow-lg mb-8 sm:mb-10">
           <h2 className="text-lg sm:text-xl font-semibold mb-2">Menuju Hari Bahagia</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-sm sm:text-lg font-bold">
-            <div className="p-2">{timeLeft.days || '0'} Hari</div>
-            <div className="p-2">{timeLeft.hours || '0'} Jam</div>
-            <div className="p-2">{timeLeft.minutes || '0'} Menit</div>
-            <div className="p-2">{timeLeft.seconds || '0'} Detik</div>
+            <div className="p-2">{timeLeft.days} Hari</div>
+            <div className="p-2">{timeLeft.hours} Jam</div>
+            <div className="p-2">{timeLeft.minutes} Menit</div>
+            <div className="p-2">{timeLeft.seconds} Detik</div>
           </div>
         </div>
 
-        {/* Peta Lokasi */}
+        {/* Google Maps */}
         <div className="mb-8 sm:mb-10">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.941458219803!2d110.37749927418743!3d-7.793687077179983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5842ecb9d3e3%3A0x6f73c65801c6f6c5!2sPendopo%20Agung!5e0!3m2!1sen!2sid!4v1720000000000"
@@ -122,10 +136,10 @@ export default function Template2({ id }: { id: string }) {
             allowFullScreen
             loading="lazy"
             className="rounded-lg border-2 border-[#a65b2a]"
-          ></iframe>
+          />
         </div>
 
-        {/* RSVP Otomatis */}
+        {/* RSVP Button */}
         <div className="mb-8 sm:mb-12">
           <a
             href="https://forms.gle/contohRSVP"

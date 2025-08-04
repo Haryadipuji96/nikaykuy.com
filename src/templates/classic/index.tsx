@@ -1,23 +1,20 @@
 'use client';
 
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Image from "next/image";
-import Head from "next/head";
-import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
-import { Playfair_Display, Inter } from "next/font/google";
-import { motion } from "framer-motion";
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Image from 'next/image';
+import Head from 'next/head';
+import { FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
+import { Playfair_Display, Inter } from 'next/font/google';
+import { motion } from 'framer-motion';
 
-const playfair = Playfair_Display({ subsets: ["latin"], weight: "500" });
-const inter = Inter({ subsets: ["latin"] });
+const playfair = Playfair_Display({ subsets: ['latin'], weight: '500' });
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Template3({ id }: { id: string }) {
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
+    AOS.init({ duration: 1000, once: true });
   }, []);
 
   return (
@@ -28,11 +25,9 @@ export default function Template3({ id }: { id: string }) {
       </Head>
 
       <div className={`min-h-screen bg-[#f3f2ec] text-[#3b322c] relative overflow-x-hidden ${inter.className}`}>
+
         {/* HEADER / HERO */}
-        <section
-          className="relative text-center py-12 md:py-16 px-4 bg-gradient-to-b from-[#e7e4d8] to-[#f3f2ec]"
-          data-aos="fade-down"
-        >
+        <section className="relative text-center py-12 md:py-16 px-4 bg-gradient-to-b from-[#e7e4d8] to-[#f3f2ec]" data-aos="fade-down">
           <Image
             src="/images/demo/prewedingClassic2.jpg"
             alt="Ornamen"
@@ -58,14 +53,12 @@ export default function Template3({ id }: { id: string }) {
 
         {/* PROFIL PENGANTIN */}
         <section className="py-8 md:py-10 px-4 md:px-6 text-center" data-aos="fade-up">
-          <p className="mb-2 md:mb-3 text-sm md:text-base">
-            Assalamu&#39;alaikum Wr. Wb.
-          </p>
+          <p className="mb-2 md:mb-3 text-sm md:text-base">Assalamu &quot;alaikum Wr. Wb.</p>
           <h2 className="text-base md:text-lg font-medium mb-2 md:mb-3 max-w-2xl mx-auto">
             Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i ke acara pernikahan kami:
           </h2>
           <h3 className={`text-3xl md:text-4xl text-[#96764d] mb-2 ${playfair.className}`}>
-            Rahmat &amp; Siti
+            Rahmat &quot; Siti
           </h3>
           <p className="italic text-[#6e5c4f] text-sm md:text-base mb-6">
             Membangun rumah tangga sakinah, mawaddah, warahmah
@@ -78,13 +71,13 @@ export default function Template3({ id }: { id: string }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
           >
-            "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup..."
+            &quot;Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup...&quot;
             <br />
             <span className="text-xs sm:text-sm">QS. Ar-Rum: 21</span>
           </motion.blockquote>
         </section>
 
-        {/* FOTO */}
+        {/* FOTO PASANGAN */}
         <section className="flex justify-center py-4 md:py-6 px-4" data-aos="zoom-in">
           <div className="w-full max-w-xs md:max-w-sm">
             <Image
@@ -130,12 +123,8 @@ export default function Template3({ id }: { id: string }) {
           <p className="italic mb-2 text-sm md:text-base">
             Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.
           </p>
-          <p className="mb-3 md:mb-4 text-sm md:text-base">
-            Wassalamu&#39;alaikum Wr. Wb.
-          </p>
-          <p className="text-lg font-semibold text-[#6b4f3b]">
-            Rahmat &amp; Siti
-          </p>
+          <p className="mb-3 md:mb-4 text-sm md:text-base">Wassalamu &quot;alaikum Wr. Wb.</p>
+          <p className="text-lg font-semibold text-[#6b4f3b]">Rahmat &quot; Siti</p>
         </section>
 
         {/* FOOTER */}
