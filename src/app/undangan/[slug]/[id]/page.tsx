@@ -1,25 +1,7 @@
 import Diamond from "@/templates/diamond";
 import Elegant from "@/templates/elegant";
 import Classic from "@/templates/classic";
-
-interface Props {
-  params: {
-    slug: string;
-    id: string;
-  };
-}
-
-// Tentukan tipe props untuk setiap komponen template
-type TemplateComponentProps = {
-  id: string;
-};
-
-// Map slug ke komponen dengan tipe aman
-const templates: Record<string, React.ComponentType<TemplateComponentProps>> = {
-  diamond: Diamond,
-  elegant: Elegant,
-  classic: Classic,
-};
+import { type FC } from "react";
 
 export async function generateStaticParams() {
   return [
@@ -29,9 +11,22 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function UndanganPage({ params }: Props) {
-  const { slug, id } = params;
+interface UndanganPageProps {
+  params: {
+    slug: string;
+    id: string;
+  };
+}
 
+// Mapping template
+const templates: Record<string, FC<{ id: string }>> = {
+  diamond: Diamond,
+  elegant: Elegant,
+  classic: Classic,
+};
+
+const UndanganPage: FC<UndanganPageProps> = ({ params }) => {
+  const { slug, id } = params;
   const TemplateComponent = templates[slug];
 
   if (!TemplateComponent) {
@@ -44,4 +39,6 @@ export default function UndanganPage({ params }: Props) {
   }
 
   return <TemplateComponent id={id} />;
-}
+};
+
+export default UndanganPage;
