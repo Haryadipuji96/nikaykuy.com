@@ -2,12 +2,13 @@ import Diamond from "@/templates/diamond";
 import Elegant from "@/templates/elegant";
 import Classic from "@/templates/classic";
 
-interface PageProps {
+type PageProps = {
   params: {
     slug: string;
     id: string;
   };
-}
+};
+
 
 export default function UndanganPage({ params }: PageProps) {
   const { slug, id } = params;
