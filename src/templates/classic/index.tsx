@@ -9,7 +9,7 @@ import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 
 export default function Template3({ id }: { id: string }) {
   useEffect(() => {
-    AOS.init({ 
+    AOS.init({
       duration: 1000,
       once: true // Animations trigger only once
     });
@@ -27,7 +27,6 @@ export default function Template3({ id }: { id: string }) {
       </Head>
 
       <div className="min-h-screen bg-[#f3f2ec] text-[#3b322c] font-[Inter] relative overflow-x-hidden">
-
         {/* HEADER / HERO */}
         <section
           className="relative text-center py-12 md:py-16 px-4 bg-gradient-to-b from-[#e7e4d8] to-[#f3f2ec]"
@@ -51,23 +50,31 @@ export default function Template3({ id }: { id: string }) {
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-[Playfair Display] text-[#6b4f3b] mb-2">
             Undangan Pernikahan
           </h1>
-          <p className="text-base md:text-lg italic text-[#7d6b5a]">Dengan adat & nuansa klasik</p>
+          <p className="text-base md:text-lg italic text-[#7d6b5a]">
+            Dengan adat & nuansa klasik
+          </p>
           <p className="text-xs md:text-sm text-gray-500 mt-3">ID: {id}</p>
         </section>
 
         {/* PROFIL PENGANTIN */}
         <section className="py-8 md:py-10 px-4 md:px-6 text-center" data-aos="fade-up">
-          <p className="mb-2 md:mb-3 text-sm md:text-base">Assalamu'alaikum Wr. Wb.</p>
-          <h2 className="text-base md:text-lg font-medium mb-2 md:mb-3 max-w-2xl mx-auto">
-            Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i ke acara pernikahan kami:
-          </h2>
-          <h3 className="text-3xl md:text-4xl font-[Playfair Display] text-[#96764d] mb-2">
-            Rahmat & Siti
-          </h3>
-          <p className="italic text-[#6e5c4f] text-sm md:text-base">
-            Membangun rumah tangga sakinah, mawaddah, warahmah
-          </p>
-        </section>
+  <p className="mb-2 md:mb-3 text-sm md:text-base">
+    Assalamu&#39;alaikum Wr. Wb.
+  </p>
+  
+  <h2 className="text-base md:text-lg font-medium mb-2 md:mb-3 max-w-2xl mx-auto">
+    Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i ke acara pernikahan kami:
+  </h2>
+
+  <h3 className="text-3xl md:text-4xl font-[Playfair Display] text-[#96764d] mb-2">
+    Rahmat &amp; Siti
+  </h3>
+
+  <p className="italic text-[#6e5c4f] text-sm md:text-base">
+    Membangun rumah tangga sakinah, mawaddah, warahmah
+  </p>
+</section>
+
 
         {/* FOTO */}
         <section className="flex justify-center py-4 md:py-6 px-4" data-aos="zoom-in">
@@ -113,10 +120,17 @@ export default function Template3({ id }: { id: string }) {
 
         {/* PENUTUP */}
         <section className="text-center py-6 px-4 md:px-6" data-aos="fade-up">
-          <p className="italic mb-2 text-sm md:text-base">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
-          <p className="mb-3 md:mb-4 text-sm md:text-base">Wassalamu'alaikum Wr. Wb.</p>
-          <p className="text-lg font-semibold text-[#6b4f3b]">Rahmat & Siti</p>
-        </section>
+  <p className="italic mb-2 text-sm md:text-base">
+    Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.
+  </p>
+  <p className="mb-3 md:mb-4 text-sm md:text-base">
+    Wassalamu&#39;alaikum Wr. Wb.
+  </p>
+  <p className="text-lg font-semibold text-[#6b4f3b]">
+    Rahmat &amp; Siti
+  </p>
+</section>
+
 
         {/* FOOTER */}
         <footer className="bg-[#6b4f3b] text-white text-center py-3 md:py-4 text-xs md:text-sm">

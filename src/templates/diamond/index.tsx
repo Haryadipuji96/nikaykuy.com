@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
 import {
   FaCalendarAlt,
@@ -9,7 +10,6 @@ import {
   FaVideo,
   FaPlay,
   FaPause,
-  FaWhatsapp
 } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 
@@ -17,9 +17,16 @@ export default function Template1({ id }: { id: string }) {
   const [countdown, setCountdown] = useState('')
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [hasMounted, setHasMounted] = useState(false)
 
-  // Countdown
+  // Mencegah render sebelum client-side mount
   useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  // Countdown waktu
+  useEffect(() => {
+    if (!hasMounted) return
     const targetDate = new Date('2025-10-10T08:00:00')
     const timer = setInterval(() => {
       const now = new Date().getTime()
@@ -38,10 +45,12 @@ export default function Template1({ id }: { id: string }) {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [hasMounted])
 
-  // Autoplay on click
+  // Autoplay audio saat interaksi
   useEffect(() => {
+    if (!hasMounted) return
+
     const handleInteraction = () => {
       if (audioRef.current && !isPlaying) {
         audioRef.current.play().catch(e => console.log("Autoplay prevented:", e))
@@ -51,10 +60,11 @@ export default function Template1({ id }: { id: string }) {
     window.addEventListener('click', handleInteraction)
 
     return () => window.removeEventListener('click', handleInteraction)
-  }, [isPlaying])
+  }, [isPlaying, hasMounted])
 
-  // Sinkronisasi status play/pause dari element audio
+  // Sinkronisasi status audio
   useEffect(() => {
+    if (!hasMounted) return
     const audio = audioRef.current
     if (!audio) return
 
@@ -68,7 +78,7 @@ export default function Template1({ id }: { id: string }) {
       audio.removeEventListener('play', handlePlay)
       audio.removeEventListener('pause', handlePause)
     }
-  }, [])
+  }, [hasMounted])
 
   const toggleAudio = () => {
     if (!audioRef.current) return
@@ -79,6 +89,8 @@ export default function Template1({ id }: { id: string }) {
     }
   }
 
+  if (!hasMounted) return null // ⛔ Hindari SSR hydration error
+
   return (
     <div className="min-h-screen bg-pink-50 text-gray-800 font-serif relative overflow-x-hidden">
       {/* Musik */}
@@ -87,10 +99,8 @@ export default function Template1({ id }: { id: string }) {
       </audio>
 
       <div className="max-w-3xl mx-auto py-8 md:py-12 px-4 sm:px-6 text-center">
-        {/* ID Undangan */}
         <p className="text-xs sm:text-sm text-gray-500 mb-2">ID Undangan: {id}</p>
 
-        {/* Judul */}
         <motion.h1
           className="text-3xl sm:text-4xl md:text-5xl font-bold text-pink-600 mb-2"
           initial={{ opacity: 0, y: -30 }}
@@ -109,7 +119,6 @@ export default function Template1({ id }: { id: string }) {
           Rina & Budi
         </motion.p>
 
-        {/* Kontrol Musik */}
         <motion.div
           className="mb-6 flex justify-center"
           initial={{ opacity: 0 }}
@@ -125,7 +134,6 @@ export default function Template1({ id }: { id: string }) {
           </button>
         </motion.div>
 
-        {/* Foto */}
         <motion.div
           className="mx-auto mb-6 max-w-xs sm:max-w-sm md:max-w-md"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -139,7 +147,6 @@ export default function Template1({ id }: { id: string }) {
           />
         </motion.div>
 
-        {/* Tanggal */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 mb-2 text-pink-600 text-sm sm:text-base">
           <div className="flex items-center gap-1">
             <FaCalendarAlt size={14} />
@@ -149,7 +156,6 @@ export default function Template1({ id }: { id: string }) {
           <span>08:00 WIB</span>
         </div>
 
-        {/* Countdown */}
         <motion.div
           className="text-base sm:text-lg md:text-xl font-semibold text-pink-700 mb-6"
           initial={{ opacity: 0 }}
@@ -159,7 +165,6 @@ export default function Template1({ id }: { id: string }) {
           Hitung Mundur: {countdown}
         </motion.div>
 
-        {/* Ayat */}
         <motion.blockquote
           className="italic text-pink-800 mb-8 text-sm sm:text-base px-2"
           initial={{ opacity: 0, y: 20 }}
@@ -168,12 +173,11 @@ export default function Template1({ id }: { id: string }) {
         >
           "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup..."
           <br />
-          <span className="text-xs sm:text-sm">– QS. Ar-Rum: 21</span>
+          <span className="text-xs sm:text-sm"> QS. Ar-Rum: 21</span>
         </motion.blockquote>
 
         <p className="mb-4 text-sm sm:text-base">Kami mengundang Anda untuk hadir di hari bahagia kami.</p>
 
-        {/* Lokasi */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 mb-4 text-pink-600 text-sm sm:text-base">
           <div className="flex items-center gap-1">
             <FaMapMarkerAlt size={14} />
@@ -181,7 +185,6 @@ export default function Template1({ id }: { id: string }) {
           </div>
         </div>
 
-        {/* Google Maps */}
         <motion.div
           className="mb-8"
           initial={{ opacity: 0 }}
@@ -197,7 +200,6 @@ export default function Template1({ id }: { id: string }) {
           ></iframe>
         </motion.div>
 
-        {/* Live Streaming */}
         <div className="mb-8">
           <h2 className="text-lg sm:text-xl font-semibold mb-2 flex items-center justify-center gap-2">
             <FaVideo size={16} /> Live Streaming Acara
@@ -212,7 +214,6 @@ export default function Template1({ id }: { id: string }) {
           </a>
         </div>
 
-        {/* Galeri */}
         <motion.div
           className="mb-8 sm:mb-12"
           initial={{ opacity: 0 }}
@@ -222,25 +223,12 @@ export default function Template1({ id }: { id: string }) {
         >
           <h2 className="text-xl sm:text-2xl font-semibold mb-4">Galeri Momen Kami</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
-            <img 
-              src="/images/demo/prewedingDiamond1.jpg" 
-              alt="Galeri 1" 
-              className="rounded-lg w-full h-auto object-cover aspect-square"
-            />
-            <img 
-              src="/images/demo/prewedingDiamond2.jpg" 
-              alt="Galeri 2" 
-              className="rounded-lg w-full h-auto object-cover aspect-square"
-            />
-            <img 
-              src="/images/demo/prewedingDiamond3.jpg" 
-              alt="Galeri 3" 
-              className="rounded-lg w-full h-auto object-cover aspect-square"
-            />
+            <img src="/images/demo/prewedingDiamond1.jpg" alt="Galeri 1" className="rounded-lg w-full h-auto object-cover aspect-square" />
+            <img src="/images/demo/prewedingDiamond2.jpg" alt="Galeri 2" className="rounded-lg w-full h-auto object-cover aspect-square" />
+            <img src="/images/demo/prewedingDiamond3.jpg" alt="Galeri 3" className="rounded-lg w-full h-auto object-cover aspect-square" />
           </div>
         </motion.div>
 
-        {/* RSVP */}
         <div className="mb-6 sm:mb-8">
           <a
             href="https://forms.gle/your-google-form-link"
@@ -252,8 +240,6 @@ export default function Template1({ id }: { id: string }) {
           </a>
         </div>
 
-
-        {/* Ucapan */}
         <motion.div
           className="bg-white p-4 sm:p-6 rounded-lg shadow-lg mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 40 }}
